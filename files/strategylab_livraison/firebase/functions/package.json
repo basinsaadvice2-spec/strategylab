@@ -1,0 +1,11 @@
+{
+  "name": "strategylab-functions",
+  "description": "Mise à jour automatique des données de marché (Gold/Oil) dans Firestore",
+  "engines": { "node": "20" },
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  }
+}

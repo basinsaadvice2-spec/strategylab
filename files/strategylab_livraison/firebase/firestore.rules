@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Données de marché : LECTURE SEULE, uniquement pour les deux actifs prévus.
+    // Aucune écriture possible depuis un navigateur. La Cloud Function écrit via
+    // l'Admin SDK, qui ignore ces règles : "if false" ne la bloque donc pas.
+    match /markets/{symbol} {
+      // Un seul document connu à la fois (pas de listing de la collection racine).
+      allow get: if symbol in ['GOLD', 'OIL'];
+      allow list, create, update, delete: if false;
+
+      match /years/{year} {
+        allow get, list: if symbol in ['GOLD', 'OIL'];
+        allow create, update, delete: if false;
+      }
+    }
+
+    // Tout le reste est fermé par défaut (lecture ET écriture).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
