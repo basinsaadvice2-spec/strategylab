@@ -1,7 +1,0 @@
-tests/
-reports/
-dist/
-.git/
-.streamlit/
-**/__pycache__/
-*.zip
